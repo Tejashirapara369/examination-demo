@@ -1,0 +1,99 @@
+<h4>Welcome {{ loggedInUser?.name }}</h4>
+<hr />
+<div class="btn btn-success mb-3" (click)="showPopup = true">
+  Create New Exam:
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h5>Exam List</h5>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Qustion Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of questionList; let j=index">
+            <th scope="row">{{j+1}}</th>
+            <td>{{item.subject}}</td>
+            <td>{{item.questionType}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="col-md-6">
+    <h5>Student List</h5>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">City</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of studentList; let i=index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{item.name}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.city}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+
+<div class="modal show" style="display: block" *ngIf="showPopup">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add New Exam</h4>
+        <button type="button" class="close" (click)="showPopup = false">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <form [formGroup]="questionForm">
+        <div class="form-group ml-2 mr-2">
+          <label for="subject">Subject</label>
+          <input
+            type="text"
+            class="form-control"
+            id="subject"
+            formControlName="subject"
+          />
+        </div>
+        <div class="form-group ml-2 mr-2">
+          <label for="question">Question Type:</label>
+          <select
+            id="question"
+            class="form-control"
+            formControlName="questionType"
+          >
+            <option>MCQ Based</option>
+            <option>Descriptive</option>
+          </select>
+        </div>
+      </form>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="showPopup = false"
+        >
+          Close
+        </button>
+        <button type="button" class="btn btn-success" (click)="onSubmit()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
