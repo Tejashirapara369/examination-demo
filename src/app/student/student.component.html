@@ -1,5 +1,7 @@
-<h4>Welcome {{loggedInUser?.name}}</h4>
-
+<div class="logout">
+  <h4>Welcome {{loggedInUser?.name}}</h4>
+  <button class="btn btn-danger" (click)="authService.logout()">Log Out</button>
+</div>
 <p *ngIf="!questionList.length">No Exam Available.!</p>
 
 <table class="table">

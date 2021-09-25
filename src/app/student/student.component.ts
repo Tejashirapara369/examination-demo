@@ -11,7 +11,7 @@ export class StudentComponent implements OnInit {
   loggedInUser: any;
   questionList: any[] = [];
 
-  constructor(private authService: AuthService) {
+  constructor(public authService: AuthService) {
     this.loggedInUser = authService.currentUser;
     this.questionList = authService.questions;
    }

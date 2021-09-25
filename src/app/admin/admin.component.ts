@@ -15,7 +15,7 @@ export class AdminComponent implements OnInit {
   questionList: any[] = [];
   studentList: any[] = [];
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {
+  constructor(public authService: AuthService, private fb: FormBuilder) {
     this.loggedInUser = authService.currentUser;
     this.questionList = authService.questions;
     this.studentList = authService.students;

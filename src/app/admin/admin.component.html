@@ -1,7 +1,10 @@
-<h4>Welcome {{ loggedInUser?.name }}</h4>
+<div class="logout">
+  <h4>Welcome {{loggedInUser?.name}}</h4>
+  <button class="btn btn-danger" (click)="authService.logout()">Log Out</button>
+</div>
 <hr />
 <div class="btn btn-success mb-3" (click)="showPopup = true">
-  Create New Exam:
+  Create New Exam
 </div>
 <div class="row">
   <div class="col-md-6">

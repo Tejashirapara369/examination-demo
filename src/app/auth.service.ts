@@ -15,6 +15,7 @@ export class AuthService {
     this.users = JSON.parse(localStorage.getItem('users') as string) || [];
     this.questions = JSON.parse(localStorage.getItem('questions') as string) || [];
     this.students = this.users.filter(el => el.role === 'Student')
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser') as string)
    }
 
   login(data: any, onSuccess: any, onFail: any) {
@@ -23,6 +24,7 @@ export class AuthService {
     if(user) {
       if(user.role) {
         this.currentUser = user;
+        localStorage.setItem("currentUser", JSON.stringify(user));
         onSuccess(user);
         this.router.navigate([`/${user.role.toLowerCase()}`]);
       } 
@@ -33,13 +35,23 @@ export class AuthService {
 
   register(userData: any) {
     userData.email = userData.email.toLowerCase();
-    this.users.push(userData);
-    localStorage.setItem('users', JSON.stringify(this.users));
-    this.router.navigate([`/${userData.role.toLowerCase()}`])
+    if(this.users.findIndex((el) => el.email === userData.email) !== -1) {
+      this.users.push(userData);
+      localStorage.setItem("currentUser", JSON.stringify(userData));
+      localStorage.setItem('users', JSON.stringify(this.users));
+      this.router.navigate([`/${userData.role.toLowerCase()}`])
+    } else {
+      console.error(userData.name, " User already exist!")
+    }
   }
 
   addQuestion(data: any) {
     this.questions.push(data);
     localStorage.setItem('questions', JSON.stringify(this.questions));
+  }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+    this.router.navigate(['/']);
   }
 }
